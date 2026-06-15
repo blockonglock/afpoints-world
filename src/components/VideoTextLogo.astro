@@ -1,0 +1,68 @@
+---
+const maskId = 'afpoints-logo-cutout-mask';
+---
+
+<a class="video-text-logo" href="/" aria-label="AF.POINTS home" data-video-logo>
+  <video
+    class="video-text-logo__media"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster="/logo-poster.svg"
+  >
+    <source src="/logo-video.mp4" type="video/mp4" />
+  </video>
+
+  <svg class="video-text-logo__cutout" viewBox="0 0 600 100" aria-hidden="true" focusable="false">
+    <defs>
+      <mask id={maskId} maskUnits="userSpaceOnUse">
+        <rect x="-2" y="-2" width="604" height="104" fill="white" />
+        <text
+          x="50%"
+          y="52%"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          font-family="'Bebas Neue', 'Arial Narrow', Impact, sans-serif"
+          font-size="104"
+          font-weight="400"
+          letter-spacing="0.15em"
+          fill="black"
+        >
+          AF.POINTS
+        </text>
+      </mask>
+    </defs>
+    <rect x="-2" y="-2" width="604" height="104" fill="var(--page)" mask={`url(#${maskId})`} />
+  </svg>
+
+  <span class="video-text-logo__fallback" aria-hidden="true">AF.POINTS</span>
+</a>
+
+<script>
+  const logos = document.querySelectorAll('[data-video-logo]');
+
+  for (const logo of logos) {
+    const video = logo.querySelector('video');
+    if (!(video instanceof HTMLVideoElement)) continue;
+
+    const markReady = () => logo.classList.add('is-video-ready');
+    const markFailed = () => logo.classList.add('is-video-failed');
+
+    video.addEventListener('loadeddata', markReady, { once: true });
+    video.addEventListener('playing', markReady);
+    video.addEventListener('error', markFailed, { once: true });
+
+    const attempt = video.play();
+    if (attempt) {
+      attempt.then(markReady).catch(() => {
+        if (video.readyState < 2) markFailed();
+      });
+    }
+
+    window.setTimeout(() => {
+      if (video.readyState < 2) markFailed();
+    }, 2500);
+  }
+</script>

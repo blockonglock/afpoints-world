@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const updates = [
+  {
+    date: 'June 2026',
+    text: 'AF.POINTS is moving to a lighter static home.',
+    href: '/about/',
+  },
+  {
+    date: 'Soon',
+    text: 'Reviews, notes, and plugin pages will return here.',
+    href: '/review/',
+  },
+];
+---
+
+<BaseLayout>
+  <section class="feed" aria-label="AF.POINTS updates">
+    {
+      updates.map((item) => (
+        <article class="feed-item">
+          <time>{item.date}</time>
+          <a href={item.href}>{item.text}</a>
+        </article>
+      ))
+    }
+  </section>
+</BaseLayout>

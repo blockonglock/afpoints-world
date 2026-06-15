@@ -1,0 +1,23 @@
+---
+import VideoTextLogo from './VideoTextLogo.astro';
+
+const navItems = [
+  { href: '/about/', label: 'about me' },
+  { href: '/review/', label: 'review' },
+  { href: '/blog/', label: 'blog' },
+  { href: '/plugins/', label: 'plugins' },
+];
+---
+
+<header class="site-header">
+  <VideoTextLogo />
+  <nav class="site-nav" aria-label="Primary navigation">
+    {
+      navItems.map((item) => (
+        <a href={item.href} class="site-nav__link">
+          {item.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
