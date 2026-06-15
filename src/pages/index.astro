@@ -1,17 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import reviews from '../data/reviews.json';
 
 const updates = [
-  {
-    date: 'June 2026',
-    text: 'AF.POINTS is moving to a lighter static home.',
-    href: '/about/',
-  },
-  {
-    date: 'Soon',
-    text: 'Reviews, notes, and plugin pages will return here.',
-    href: '/review/',
-  },
+  ...reviews.slice(0, 6).map((review) => ({
+    date: review.year ? String(review.year) : 'review',
+    text: `${review.artist} - ${review.title}`,
+    href: `/review/${review.slug}/`,
+  })),
+  { date: 'index', text: 'all reviews', href: '/review/' },
 ];
 ---
 

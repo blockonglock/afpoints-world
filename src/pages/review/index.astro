@@ -1,10 +1,30 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import reviews from '../../data/reviews.json';
 ---
 
 <BaseLayout title="review" description="AF.POINTS reviews.">
-  <section class="text-page">
+  <section class="review-index">
     <h1>review</h1>
-    <p>soon.</p>
+    <div class="review-list" aria-label="Album reviews">
+      {
+        reviews.map((review) => (
+          <article class="review-row">
+            <a class="review-row__cover-link" href={`/review/${review.slug}/`} aria-label={`${review.artist} - ${review.title}`}>
+              <img class="review-row__cover" src={review.cover} alt={`${review.artist} - ${review.title} cover`} loading="lazy" />
+            </a>
+            <div class="review-row__body">
+              <a class="review-row__title" href={`/review/${review.slug}/`}>
+                {review.artist} - {review.title}
+              </a>
+              <p class="review-row__meta">
+                {[review.year, review.genre, review.rating ? `${review.rating}/10` : null].filter(Boolean).join(' / ')}
+              </p>
+              {review.review && <p class="review-row__excerpt">{review.review}</p>}
+            </div>
+          </article>
+        ))
+      }
+    </div>
   </section>
 </BaseLayout>

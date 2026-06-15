@@ -1,0 +1,55 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import reviews from '../../data/reviews.json';
+
+export function getStaticPaths() {
+  return reviews.map((review) => ({
+    params: { slug: review.slug },
+    props: { review },
+  }));
+}
+
+const { review } = Astro.props;
+const meta = [review.year, review.genre, review.rating ? `${review.rating}/10` : null].filter(Boolean).join(' / ');
+const reviewParagraphs = String(review.review || '')
+  .split(/\n{2,}/)
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean);
+
+const isHttpUrl = (value) => {
+  if (!value) return false;
+  try {
+    const url = new URL(value);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  } catch {
+    return false;
+  }
+};
+---
+
+<BaseLayout title={`${review.artist} - ${review.title}`} description={`${review.artist} - ${review.title} review on AF.POINTS.`}>
+  <article class="review-detail">
+    <a class="back-link" href="/review/">review</a>
+    <div class="review-detail__grid">
+      <img class="review-detail__cover" src={review.cover} alt={`${review.artist} - ${review.title} cover`} />
+      <div class="review-detail__body">
+        <h1>{review.title}</h1>
+        <p class="review-detail__artist">{review.artist}</p>
+        {meta && <p class="review-detail__meta">{meta}</p>}
+        <div class="review-detail__copy">
+          {
+            reviewParagraphs.length ? (
+              reviewParagraphs.map((paragraph) => <p>{paragraph}</p>)
+            ) : (
+              <p>No text yet.</p>
+            )
+          }
+        </div>
+        <div class="review-detail__links">
+          {isHttpUrl(review.spotify) && <a href={review.spotify} target="_blank" rel="noreferrer">spotify</a>}
+          {isHttpUrl(review.youtube) && <a href={review.youtube} target="_blank" rel="noreferrer">youtube</a>}
+        </div>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
