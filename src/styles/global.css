@@ -50,13 +50,13 @@ a:focus-visible {
 .site-header {
   width: min(100%, 1180px);
   margin: 0 auto;
-  padding: clamp(24px, 5vw, 58px) clamp(16px, 5vw, 44px) clamp(20px, 4vw, 42px);
+  padding: clamp(17px, 3.5vw, 41px) clamp(16px, 5vw, 44px) clamp(14px, 2.8vw, 29px);
 }
 
 .video-text-logo {
   position: relative;
   display: block;
-  width: min(100%, 980px);
+  width: min(100%, 686px);
   aspect-ratio: 6 / 1;
   margin: 0 auto;
   overflow: hidden;
@@ -90,7 +90,7 @@ a:focus-visible {
   place-items: center;
   color: var(--text);
   font-family: var(--font-display);
-  font-size: clamp(52px, 16vw, 164px);
+  font-size: clamp(36px, 11.2vw, 115px);
   line-height: 1;
   opacity: 0;
   z-index: 2;
@@ -102,7 +102,7 @@ a:focus-visible {
   inset: 0;
   border-color: var(--page);
   border-style: solid;
-  border-width: 12px 3px 10px;
+  border-width: 8px 2px 7px;
   pointer-events: none;
   z-index: 3;
 }
@@ -119,14 +119,14 @@ a:focus-visible {
 .site-nav {
   display: flex;
   justify-content: center;
-  gap: clamp(24px, 7vw, 76px);
-  margin-top: clamp(14px, 2.2vw, 28px);
+  gap: clamp(17px, 4.9vw, 53px);
+  margin-top: clamp(10px, 1.5vw, 20px);
   flex-wrap: wrap;
 }
 
 .site-nav__link {
   font-family: var(--font-display);
-  font-size: clamp(23px, 3vw, 34px);
+  font-size: clamp(16px, 2.1vw, 24px);
   line-height: 1;
   color: var(--text);
   text-decoration: none;
@@ -169,14 +169,6 @@ a:focus-visible {
   padding-top: clamp(10px, 3vw, 32px);
 }
 
-.text-page h1 {
-  margin: 0 0 18px;
-  font-family: var(--font-display);
-  font-size: clamp(38px, 8vw, 76px);
-  font-weight: 400;
-  line-height: 1;
-}
-
 .text-page p {
   margin: 0;
   color: var(--muted);
@@ -188,7 +180,6 @@ a:focus-visible {
   padding-top: clamp(10px, 3vw, 32px);
 }
 
-.review-index h1,
 .review-detail h1 {
   margin: 0;
   font-family: var(--font-display);
@@ -200,7 +191,7 @@ a:focus-visible {
 .review-list {
   display: grid;
   gap: 26px;
-  margin-top: 30px;
+  margin-top: 0;
 }
 
 .review-row {
@@ -289,11 +280,11 @@ a:focus-visible {
   }
 
   .site-header {
-    padding-top: 22px;
+    padding-top: 15px;
   }
 
   .site-nav {
-    gap: 18px 28px;
+    gap: 13px 20px;
   }
 
   .feed-item {
