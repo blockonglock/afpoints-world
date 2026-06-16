@@ -1,0 +1,19 @@
+[
+  {
+    "slug": "afp-randomizer",
+    "title": "AF.P - randomizer",
+    "type": "Max for Live device",
+    "price": "free",
+    "status": "v1",
+    "summary": "Drop it before any plugin or audio effect in Ableton Live, generate two random patches, then morph between them.",
+    "description": "I made a Max for Live device called AF.P - randomizer.\n\nDrop it before any plugin or audio effect in Ableton Live. Generate two random patches, then morph between them. Simple as that.\n\nIt also works with VST3 plugins. Place any plugin after it in the chain, and AF.P - randomizer automatically detects that device as the target.",
+    "screenshot": "/plugins/afp-randomizer.png",
+    "links": [
+      {
+        "label": "download for free",
+        "href": "/plugins/afp-randomizer.zip",
+        "download": true
+      }
+    ]
+  }
+]

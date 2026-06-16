@@ -1,9 +1,29 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import plugins from '../../data/plugins.json';
 ---
 
 <BaseLayout title="plugins" description="AF.POINTS plugins.">
-  <section class="text-page" aria-label="Plugins">
-    <p>soon.</p>
+  <section class="plugin-index" aria-label="Plugins">
+    <div class="plugin-list" aria-label="AF.POINTS plugins">
+      {
+        plugins.map((plugin) => (
+          <article class="plugin-row">
+            <a class="plugin-row__screenshot-link" href={`/plugins/${plugin.slug}/`} aria-label={plugin.title}>
+              <img class="plugin-row__screenshot" src={plugin.screenshot} alt={`${plugin.title} screenshot`} loading="lazy" />
+            </a>
+            <div class="plugin-row__body">
+              <a class="plugin-row__title" href={`/plugins/${plugin.slug}/`}>
+                {plugin.title}
+              </a>
+              <p class="plugin-row__meta">
+                {[plugin.type, plugin.price, plugin.status].filter(Boolean).join(' / ')}
+              </p>
+              {plugin.summary && <p class="plugin-row__excerpt">{plugin.summary}</p>}
+            </div>
+          </article>
+        ))
+      }
+    </div>
   </section>
 </BaseLayout>

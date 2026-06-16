@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import plugins from '../../data/plugins.json';
+
+export function getStaticPaths() {
+  return plugins.map((plugin) => ({
+    params: { slug: plugin.slug },
+    props: { plugin },
+  }));
+}
+
+const { plugin } = Astro.props;
+const meta = [plugin.type, plugin.price, plugin.status].filter(Boolean).join(' / ');
+const descriptionParagraphs = String(plugin.description || plugin.summary || '')
+  .split(/\n{2,}/)
+  .map((paragraph) => paragraph.trim())
+  .filter(Boolean);
+
+const isSafeLink = (value) => {
+  if (!value) return false;
+  if (value.startsWith('/')) return true;
+  try {
+    const url = new URL(value);
+    return url.protocol === 'http:' || url.protocol === 'https:';
+  } catch {
+    return false;
+  }
+};
+---
+
+<BaseLayout title={plugin.title} description={`${plugin.title} plugin on AF.POINTS.`}>
+  <article class="plugin-detail">
+    <a class="back-link" href="/plugins/">plugins</a>
+    <div class="plugin-detail__grid">
+      <div class="plugin-detail__media">
+        <img class="plugin-detail__screenshot" src={plugin.screenshot} alt={`${plugin.title} screenshot`} />
+      </div>
+      <div class="plugin-detail__body">
+        <h1>{plugin.title}</h1>
+        {meta && <p class="plugin-detail__meta">{meta}</p>}
+        <div class="plugin-detail__copy">
+          {
+            descriptionParagraphs.length ? (
+              descriptionParagraphs.map((paragraph) => <p>{paragraph}</p>)
+            ) : (
+              <p>No text yet.</p>
+            )
+          }
+        </div>
+        {plugin.links?.length > 0 && (
+          <div class="plugin-detail__links">
+            {
+              plugin.links.map((link) =>
+                isSafeLink(link.href) ? (
+                  <a
+                    class={link.download ? 'plugin-detail__download' : undefined}
+                    href={link.href}
+                    target={link.href.startsWith('/') ? undefined : '_blank'}
+                    rel={link.href.startsWith('/') ? undefined : 'noreferrer'}
+                    download={link.download ? '' : undefined}
+                  >
+                    {link.label}
+                  </a>
+                ) : null
+              )
+            }
+          </div>
+        )}
+      </div>
+    </div>
+  </article>
+</BaseLayout>
